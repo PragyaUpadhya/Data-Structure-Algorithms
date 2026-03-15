@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+void bubbleSort(int arr[],int n){
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-i-1;j++){ // 2 ko compare karne wala iteration ka loop h (1 baar ka pura) iteration ki value change ho rahi h // iteration 0th gya 4 tak iteration 1 gya tak
+            if(arr[j]>arr[j+1]){
+            swap(arr[j],arr[j+1]);
+            }
+        }
+    }
+
+}
+int main(){
+    // int n = 5;
+    // int arr[5]={4,5,1,7,8};
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++) cin>>arr[i];
+    bubbleSort(arr,n);
+    cout<<"the sorted array is";
+    for(int i = 0;i<n;i++){
+        cout<<arr[i]<<" ";
+    }
+}
+//bubble me - compare j with j+1
+//selection me - compare min with j
