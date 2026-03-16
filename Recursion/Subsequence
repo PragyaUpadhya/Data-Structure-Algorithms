@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+void sub(int i , int n ,int arr[] ,vector<int>&ds ){
+    if(i==n){
+        for(int x : ds){ // ds me hamare subsequence h unhe we are storing in x // we can either write for(auto x : ds )  auto will automaticaaly identify the data type
+            cout<<x<<" "; // printing the subsequence
+        }
+        if(ds.size()==0){
+            cout<<"{}";
+        }
+        cout<<endl;
+        return ;
+    }
+// exlude or non take
+sub(i+1,n,arr,ds);
+//include or take
+ds.push_back(arr[i]);
+sub(i+1,n,arr,ds);
+}
+int main(){
+    int n = 3;
+    int arr[]={1,2,3};
+    vector<int>ds;
+    sub(0,n,arr,ds);
+    return 0;
+
+}
