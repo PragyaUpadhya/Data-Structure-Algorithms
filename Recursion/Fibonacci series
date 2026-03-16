@@ -1,0 +1,15 @@
+#include<iostream>
+using namespace std;
+int fab(int n){
+    //base case
+    if(n<=1){
+    return n;
+}
+int last = fab(n-1); // no.ke ek pahale
+int slast = fab(n-2); // no. ke ek ka ek pahale
+return last+slast;
+}
+int main(){
+    fab(5);
+    cout<<fab(3);
+}
