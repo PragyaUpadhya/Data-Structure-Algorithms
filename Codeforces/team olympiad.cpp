@@ -23,9 +23,7 @@ int main(){
             count_pe++;
         }
         }
-    int w = count_prog;
-    if(count_maths<count_prog) w = 2;
-    if(count_pe<count_maths) w = 3;
+    int w = min(count_prog, min(count_maths, count_pe));
     cout<<w<<endl;
     for(int i=0;i<w;i++){
         cout<<one[i]<<" "<<two[i]<<" "<<three[i]<<endl;
