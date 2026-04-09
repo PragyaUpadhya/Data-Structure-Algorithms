@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        unordered_set<char> st;
+        
+        for (char c : s) {
+            if (st.count(c))
+                st.erase(c);
+            else
+                st.insert(c);
+        }
+        
+        if (st.empty()) return s.length();
+        
+        return s.length() - st.size() + 1;
+    }
+};
