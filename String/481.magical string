@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int magicalString(int n) {
+        if (n <= 0) return 0;
+        if (n <= 3) return 1;  // "122"
+        
+        vector<int> s(n + 1);
+        s[0] = 1; s[1] = 2; s[2] = 2;
+        
+        int i = 2;       // pointer for counts
+        int num = 1;     // next number to fill
+        int count = 1;   // count of '1's
+        
+        int idx = 3;     // next position to fill
+        
+        while (idx < n) {
+            int repeat = s[i];
+            
+            for (int j = 0; j < repeat && idx < n; j++) {
+                s[idx] = num;
+                if (num == 1) count++;
+                idx++;
+            }
+            
+            num = (num == 1) ? 2 : 1;  // toggle between 1 and 2
+            i++;
+        }
+        
+        return count;
+    }
+};
