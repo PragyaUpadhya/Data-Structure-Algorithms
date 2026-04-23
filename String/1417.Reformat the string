@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string reformat(string s) {
+        string letters = "", digits = "";
+
+        // Separate letters and digits
+        for (char c : s) {
+            if (isalpha(c)) letters += c;
+            else digits += c;
+        }
+
+        // If difference > 1 → impossible
+        if (abs((int)letters.size() - (int)digits.size()) > 1)
+            return "";
+
+        string result = "";
+        
+        // Decide which type starts first
+        bool letterFirst = letters.size() > digits.size();
+
+        int i = 0, j = 0;
+
+        while (i < letters.size() || j < digits.size()) {
+            if (letterFirst && i < letters.size()) {
+                result += letters[i++];
+            } 
+            if (!letterFirst && j < digits.size()) {
+                result += digits[j++];
+            }
+            letterFirst = !letterFirst; // alternate
+        }
+
+        return result;
+    }
+};
