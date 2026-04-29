@@ -1,0 +1,11 @@
+class Solution {
+public:
+    string reversePrefix(string s, int k) {
+        // If k is larger than the string length, just reverse the whole string
+        if (k > s.size()) k = s.size();
+
+        // Reverse the first k characters
+        reverse(s.begin(), s.begin() + k);
+        return s;
+    }
+};
