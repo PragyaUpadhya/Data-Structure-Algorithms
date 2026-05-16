@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<bool> isArraySpecial(vector<int>& nums,
+                                vector<vector<int>>& queries) {
+
+        int n = nums.size();
+
+        // bad[i] = number of invalid adjacent pairs till i
+        vector<int> prefix(n, 0);
+
+        for (int i = 1; i < n; i++) {
+
+            prefix[i] = prefix[i - 1];
+
+            // Same parity found
+            if ((nums[i] % 2) == (nums[i - 1] % 2)) {
+                prefix[i]++;
+            }
+        }
+
+        vector<bool> ans;
+
+        for (auto &q : queries) {
+
+            int l = q[0];
+            int r = q[1];
+
+            // No bad pair in range
+            if (prefix[r] - prefix[l] == 0)
+                ans.push_back(true);
+            else
+                ans.push_back(false);
+        }
+
+        return ans;
+    }
+};
