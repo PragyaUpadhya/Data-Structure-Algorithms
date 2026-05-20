@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string makeGood(string s) {
+
+        int j = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+
+            s[j] = s[i];
+
+            // Check previous character
+            if (j > 0 && abs(s[j] - s[j - 1]) == 32) {
+
+                // Remove both characters
+                j -= 2;
+            }
+
+            j++;
+        }
+
+        return s.substr(0, j);
+    }
+};
