@@ -1,0 +1,68 @@
+class Solution {
+public:
+    long long maxSumTrionic(vector<int>& nums) {
+
+        int n = nums.size();
+
+        const long long NEG = -4e18;
+
+        long long inc = NEG;
+        long long dec = NEG;
+        long long tri = NEG;
+
+        long long ans = NEG;
+
+        for (int i = 1; i < n; i++) {
+
+            long long newInc = NEG;
+            long long newDec = NEG;
+            long long newTri = NEG;
+
+            // Phase 1: increasing
+            if (nums[i] > nums[i - 1]) {
+
+                // start new increasing
+                newInc = nums[i - 1] + nums[i];
+
+                // extend increasing
+                if (inc != NEG)
+                    newInc = max(newInc,
+                                 inc + nums[i]);
+            }
+
+            // Phase 2: decreasing
+            if (nums[i] < nums[i - 1]) {
+
+                // start decreasing after increasing
+                if (inc != NEG)
+                    newDec = inc + nums[i];
+
+                // continue decreasing
+                if (dec != NEG)
+                    newDec = max(newDec,
+                                 dec + nums[i]);
+            }
+
+            // Phase 3: increasing again
+            if (nums[i] > nums[i - 1]) {
+
+                // start final increasing
+                if (dec != NEG)
+                    newTri = dec + nums[i];
+
+                // continue final increasing
+                if (tri != NEG)
+                    newTri = max(newTri,
+                                 tri + nums[i]);
+            }
+
+            inc = newInc;
+            dec = newDec;
+            tri = newTri;
+
+            ans = max(ans, tri);
+        }
+
+        return ans;
+    }
+};
