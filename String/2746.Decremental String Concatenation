@@ -1,0 +1,61 @@
+class Solution {
+public:
+
+    int dp[1001][26][26];
+
+    int solve(vector<string>& words,
+              int i,
+              char first,
+              char last) {
+
+        if (i == words.size())
+            return 0;
+
+        int f = first - 'a';
+        int l = last - 'a';
+
+        if (dp[i][f][l] != -1)
+            return dp[i][f][l];
+
+        string w = words[i];
+
+        int len = w.size();
+
+        // add word at end
+        int cost1 = len;
+
+        if (last == w[0])
+            cost1--;
+
+        cost1 += solve(words,
+                       i + 1,
+                       first,
+                       w.back());
+
+        // add word at front
+        int cost2 = len;
+
+        if (w.back() == first)
+            cost2--;
+
+        cost2 += solve(words,
+                       i + 1,
+                       w[0],
+                       last);
+
+        return dp[i][f][l] = min(cost1, cost2);
+    }
+
+    int minimizeConcatenatedLength(vector<string>& words) {
+
+        memset(dp, -1, sizeof(dp));
+
+        string firstWord = words[0];
+
+        return firstWord.size() +
+               solve(words,
+                     1,
+                     firstWord[0],
+                     firstWord.back());
+    }
+};
