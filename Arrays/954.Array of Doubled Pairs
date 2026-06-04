@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool canReorderDoubled(vector<int>& arr) {
+
+        map<int, int> mp;
+
+        // count frequency
+        for (int x : arr) {
+            mp[x]++;
+        }
+
+        // sort by absolute value
+        sort(arr.begin(), arr.end(),
+            [](int a, int b) {
+                return abs(a) < abs(b);
+            });
+
+        for (int x : arr) {
+
+            // already used
+            if (mp[x] == 0)
+                continue;
+
+            // double not available
+            if (mp[2 * x] == 0)
+                return false;
+
+            // use both
+            mp[x]--;
+            mp[2 * x]--;
+        }
+
+        return true;
+    }
+};
