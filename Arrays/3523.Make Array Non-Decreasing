@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maximumPossibleSize(vector<int>& nums) {
+
+        vector<int> blocks;
+
+        for (int x : nums) {
+
+            blocks.push_back(x);
+
+            while (blocks.size() > 1 &&
+                   blocks[blocks.size()-2] > blocks.back()) {
+
+                int mx = max(blocks[blocks.size()-2],
+                             blocks.back());
+
+                blocks.pop_back();
+                blocks.pop_back();
+
+                blocks.push_back(mx);
+            }
+        }
+
+        return blocks.size();
+    }
+};
