@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string findReplaceString(string s, vector<int>& indices,
+                             vector<string>& sources,
+                             vector<string>& targets) {
+
+        string ans;
+
+        for (int i = 0; i < s.size();) {
+
+            bool replaced = false;
+
+            for (int j = 0; j < indices.size(); j++) {
+
+                if (indices[j] == i &&
+                    s.substr(i, sources[j].size()) == sources[j]) {
+
+                    ans += targets[j];
+                    i += sources[j].size();
+                    replaced = true;
+                    break;
+                }
+            }
+
+            if (!replaced) {
+                ans += s[i];
+                i++;
+            }
+        }
+
+        return ans;
+    }
+};
