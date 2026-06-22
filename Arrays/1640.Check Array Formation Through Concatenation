@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {
+
+        int n = arr.size();
+
+        for (int i = 0; i < n; ) {
+
+            bool found = false;
+
+            for (int j = 0; j < pieces.size(); j++) {
+
+                if (pieces[j][0] == arr[i]) {
+
+                    found = true;
+
+                    for (int k = 0; k < pieces[j].size(); k++) {
+
+                        if (i + k >= n || arr[i + k] != pieces[j][k])
+                            return false;
+                    }
+
+                    i += pieces[j].size();
+                    break;
+                }
+            }
+
+            if (!found)
+                return false;
+        }
+
+        return true;
+    }
+};
