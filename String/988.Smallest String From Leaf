@@ -1,0 +1,34 @@
+class Solution {
+public:
+
+    string ans = "";
+
+    void dfs(TreeNode* root, string path) {
+
+        if (!root)
+            return;
+
+        path += char(root->val + 'a');
+
+        if (!root->left && !root->right) {
+
+            string temp = path;
+            reverse(temp.begin(), temp.end());
+
+            if (ans == "" || temp < ans)
+                ans = temp;
+
+            return;
+        }
+
+        dfs(root->left, path);
+        dfs(root->right, path);
+    }
+
+    string smallestFromLeaf(TreeNode* root) {
+
+        dfs(root, "");
+
+        return ans;
+    }
+};
