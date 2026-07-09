@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> beautifulArray(int n) {
+
+        vector<int> ans;
+        ans.push_back(1);
+
+        while (ans.size() < n) {
+
+            vector<int> temp(n);
+            int index = 0;
+
+            for (int x : ans) {
+                if (2 * x - 1 <= n) {
+                    temp[index] = 2 * x - 1;
+                    index++;
+                }
+            }
+
+            for (int x : ans) {
+                if (2 * x <= n) {
+                    temp[index] = 2 * x;
+                    index++;
+                }
+            }
+
+            temp.resize(index);
+            ans = temp;
+        }
+
+        return ans;
+    }
+};
