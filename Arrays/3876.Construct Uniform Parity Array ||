@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool uniformArray(vector<int>& nums1) {
+
+        bool hasOdd = false;
+        int smallestOdd = INT_MAX;
+
+        // Find the smallest odd number
+        for (int x : nums1) {
+            if (x % 2) {
+                hasOdd = true;
+                smallestOdd = min(smallestOdd, x);
+            }
+        }
+
+        // No odd numbers => already all even
+        if (!hasOdd)
+            return true;
+
+        // Check if every even can be converted to odd
+        for (int x : nums1) {
+            if (x % 2 == 0 && x <= smallestOdd)
+                return false;
+        }
+
+        return true;
+    }
+};
