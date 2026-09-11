@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minDeletion(vector<int>& nums) {
+        int ans = 0;
+        int i = 0;
+
+        for (int j = 1; j < nums.size(); j++) {
+            if ((j - ans) % 2 == 1 && nums[j] == nums[j - 1]) {
+                ans++;
+            }
+        }
+
+        if ((nums.size() - ans) % 2 == 1)
+            ans++;
+
+        return ans;
+    }
+};
