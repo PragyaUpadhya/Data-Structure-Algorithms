@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool checkIfCanBreak(string s1, string s2) {
+        int freq1[26] = {0};
+        int freq2[26] = {0};
+
+        for (char c : s1)
+            freq1[c - 'a']++;
+
+        for (char c : s2)
+            freq2[c - 'a']++;
+
+        int sum1 = 0;
+        int sum2 = 0;
+
+        bool s1Breaks = true;
+        bool s2Breaks = true;
+
+        for (int i = 0; i < 26; i++) {
+            sum1 += freq1[i];
+            sum2 += freq2[i];
+
+            if (sum1 < sum2)
+                s1Breaks = false;
+
+            if (sum2 < sum1)
+                s2Breaks = false;
+        }
+
+        return s1Breaks || s2Breaks;
+    }
+};
