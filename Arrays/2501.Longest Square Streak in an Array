@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int longestSquareStreak(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+
+        int ans = -1;
+
+        for (int i = 0; i < nums.size(); i++) {
+            long long x = nums[i];
+            int len = 1;
+
+            while (true) {
+                x = x * x;
+
+                if (x > 1000000000)
+                    break;
+
+                if (binary_search(nums.begin(), nums.end(), (int)x)) {
+                    len++;
+                } 
+                else {
+                    break;
+                }
+            }
+
+            if (len >= 2)
+                ans = max(ans, len);
+        }
+
+        return ans;
+    }
+};
