@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int waysToMakeFair(vector<int>& nums) {
+        int totalEven = 0;
+        int totalOdd = 0;
+
+        // Calculate total even and odd index sums
+        for (int i = 0; i < nums.size(); i++) {
+            if (i % 2 == 0)
+                totalEven += nums[i];
+            else
+                totalOdd += nums[i];
+        }
+
+        int leftEven = 0;
+        int leftOdd = 0;
+        int ans = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+
+            // Remove nums[i] from the right side
+            if (i % 2 == 0)
+                totalEven -= nums[i];
+            else
+                totalOdd -= nums[i];
+
+            // After removing i, right side changes parity
+            int newEven = leftEven + totalOdd;
+            int newOdd = leftOdd + totalEven;
+
+            if (newEven == newOdd)
+                ans++;
+
+            // Add current element to left side
+            if (i % 2 == 0)
+                leftEven += nums[i];
+            else
+                leftOdd += nums[i];
+        }
+
+        return ans;
+    }
+};
