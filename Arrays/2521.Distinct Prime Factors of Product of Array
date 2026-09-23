@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int distinctPrimeFactors(vector<int>& nums) {
+        vector<int> primes;
+
+        for (int num : nums) {
+            int x = num;
+
+            for (int p = 2; p * p <= x; p++) {
+
+                if (x % p == 0) {
+
+                    // Check if this prime is already present
+                    bool found = false;
+
+                    for (int q : primes) {
+                        if (q == p) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found)
+                        primes.push_back(p);
+
+                    // Remove all occurrences of p
+                    while (x % p == 0)
+                        x /= p;
+                }
+            }
+
+            // If x > 1, x itself is a prime factor
+            if (x > 1) {
+                bool found = false;
+
+                for (int q : primes) {
+                    if (q == x) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                    primes.push_back(x);
+            }
+        }
+
+        return primes.size();
+    }
+};
