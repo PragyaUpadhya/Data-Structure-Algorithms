@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int numDifferentIntegers(string word) {
+        vector<string> nums;
+
+        int i = 0;
+
+        while (i < word.size()) {
+
+            // Skip letters
+            if (!isdigit(word[i])) {
+                i++;
+                continue;
+            }
+
+            // Read the complete number
+            string num = "";
+
+            while (i < word.size() && isdigit(word[i])) {
+                num += word[i];
+                i++;
+            }
+
+            // Remove leading zeros
+            int j = 0;
+
+            while (j < num.size() - 1 && num[j] == '0') {
+                j++;
+            }
+
+            num = num.substr(j);
+
+            // Check if already present
+            bool found = false;
+
+            for (string x : nums) {
+                if (x == num) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                nums.push_back(num);
+        }
+
+        return nums.size();
+    }
+};
