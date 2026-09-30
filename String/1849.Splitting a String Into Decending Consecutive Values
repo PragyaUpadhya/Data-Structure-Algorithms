@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool dfs(string& s, int pos, string prev, int parts) {
+        if (pos == s.size()) {
+            return parts >= 2;
+        }
+
+        string num = "";
+
+        for (int i = pos; i < s.size(); i++) {
+            num += s[i];
+
+            // Remove leading zeroes for comparison
+            string a = num;
+            string b = prev;
+
+            int p = 0;
+            while (p < a.size() - 1 && a[p] == '0')
+                p++;
+            a = a.substr(p);
+
+            p = 0;
+            while (p < b.size() - 1 && b[p] == '0')
+                p++;
+            b = b.substr(p);
+
+            // Convert only when the numbers are small enough
+            if (a.size() <= 18 && b.size() <= 18) {
+                long long x = stoll(a);
+                long long y = stoll(b);
+
+                if (x == y - 1) {
+                    if (dfs(s, i + 1, num, parts + 1))
+                        return true;
+                }
+
+                if (x >= y)
+                    break;
+            }
+        }
+
+        return false;
+    }
+
+    bool splitString(string s) {
+        string num = "";
+
+        for (int i = 0; i < s.size() - 1; i++) {
+            num += s[i];
+
+            if (dfs(s, i + 1, num, 1))
+                return true;
+        }
+
+        return false;
+    }
+};
