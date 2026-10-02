@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        vector<int> largest(10, -1);
+        int ans = -1;
+
+        for (int num : nums) {
+            int x = num;
+            int maxDigit = 0;
+
+            while (x > 0) {
+                maxDigit = max(maxDigit, x % 10);
+                x /= 10;
+            }
+
+            if (largest[maxDigit] != -1) {
+                ans = max(ans, largest[maxDigit] + num);
+            }
+
+            largest[maxDigit] = max(largest[maxDigit], num);
+        }
+
+        return ans;
+    }
+};
