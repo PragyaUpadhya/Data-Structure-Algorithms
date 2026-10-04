@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long maximumSubsequenceCount(string text, string pattern) {
+        long long first = 0;
+        long long second = 0;
+        long long count = 0;
+
+        for (char c : text) {
+            if (c == pattern[1]) {
+                count += first;
+                second++;
+            }
+
+            if (c == pattern[0]) {
+                first++;
+            }
+        }
+
+        // Add pattern[0] at the beginning
+        // OR add pattern[1] at the end
+        return count + max(first, second);
+    }
+};
