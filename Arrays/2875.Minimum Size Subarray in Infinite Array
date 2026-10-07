@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int minSizeSubarray(vector<int>& nums, int target) {
+        long long sum = 0;
+
+        for (int x : nums)
+            sum += x;
+
+        int n = nums.size();
+
+        // Complete copies of nums
+        long long full = target / sum;
+        long long remaining = target % sum;
+
+        if (remaining == 0)
+            return full * n;
+
+        // Check remaining sum in two copies
+        vector<int> arr;
+
+        for (int x : nums)
+            arr.push_back(x);
+
+        for (int x : nums)
+            arr.push_back(x);
+
+        long long window = 0;
+        int left = 0;
+        int ans = INT_MAX;
+
+        for (int right = 0; right < arr.size(); right++) {
+            window += arr[right];
+
+            while (window > remaining) {
+                window -= arr[left];
+                left++;
+            }
+
+            if (window == remaining) {
+                ans = min(ans, right - left + 1);
+            }
+        }
+
+        if (ans == INT_MAX)
+            return -1;
+
+        return full * n + ans;
+    }
+};
