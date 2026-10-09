@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        string s = to_string(x);
+        string rev = s;
+        reverse(rev.begin(), rev.end());
+        return s == rev;
+    }
+
+    long long minimumCost(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+
+        int mid = nums[nums.size() / 2];
+        int low = mid, high = mid;
+
+        while (low > 1 && !isPalindrome(low))
+            low--;
+
+        while (!isPalindrome(high))
+            high++;
+
+        long long cost1 = 0, cost2 = 0;
+
+        for (int x : nums) {
+            cost1 += abs((long long)x - low);
+            cost2 += abs((long long)x - high);
+        }
+
+        return min(cost1, cost2);
+    }
+};
