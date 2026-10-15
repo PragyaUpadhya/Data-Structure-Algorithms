@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minimumArrayLength(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+
+        int mn = nums[0];
+
+        for (int x : nums) {
+            if (x % mn != 0) {
+                return 1;
+            }
+        }
+
+        int count = 0;
+        for (int x : nums) {
+            if (x == mn) {
+                count++;
+            }
+        }
+
+        return (count + 1) / 2;
+    }
+};
