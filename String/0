@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int lengthAfterTransformations(string s, int t) {
+        const int MOD = 1000000007;
+        vector<long long> dp(26, 0);
+
+        for (char c : s) {
+            dp[c - 'a']++;
+        }
+
+        for (int step = 0; step < t; step++) {
+            vector<long long> next(26, 0);
+
+            for (int i = 0; i < 25; i++) {
+                next[i + 1] = dp[i];
+            }
+
+            next[0] = dp[25];
+            next[1] = (next[1] + dp[25]) % MOD;
+
+            dp = next;
+        }
+
+        long long ans = 0;
+        for (int i = 0; i < 26; i++) {
+            ans = (ans + dp[i]) % MOD;
+        }
+
+        return ans;
+    }
+};
