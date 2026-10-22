@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minFlips(string s) {
+        int zeros = 0, ones = 0;
+
+        for (char c : s) {
+            if (c == '0') zeros++;
+            else ones++;
+        }
+
+        if (zeros == 0 || ones == 0)
+            return 0;
+
+        int ans = ones - 1;
+
+        if (s[0] == '1' && s[s.size() - 1] == '1')
+            ans--;
+
+        return min(zeros, ans);
+    }
+};
