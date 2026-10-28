@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<long long> resultArray(vector<int>& nums, int k) {
+        vector<long long> ans(k, 0);
+        vector<long long> prev(k, 0);
+
+        for (int x : nums) {
+            vector<long long> curr(k, 0);
+            int rem = x % k;
+
+            curr[rem]++;
+
+            for (int r = 0; r < k; r++) {
+                if (prev[r] > 0) {
+                    curr[(1LL * r * rem) % k] += prev[r];
+                }
+            }
+
+            for (int r = 0; r < k; r++) {
+                ans[r] += curr[r];
+            }
+
+            prev = curr;
+        }
+
+        return ans;
+    }
+};
