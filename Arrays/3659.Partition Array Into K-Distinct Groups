@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool partitionArray(vector<int>& nums, int k) {
+        int n = nums.size();
+
+        if (n % k != 0) {
+            return false;
+        }
+
+        sort(nums.begin(), nums.end());
+
+        int groups = n / k;
+        int count = 1;
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] == nums[i - 1]) {
+                count++;
+
+                if (count > groups) {
+                    return false;
+                }
+            } 
+            else {
+                count = 1;
+            }
+        }
+
+        return true;
+    }
+};
