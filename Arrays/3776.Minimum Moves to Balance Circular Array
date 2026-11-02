@@ -1,0 +1,40 @@
+class Solution {
+public:
+    long long minMoves(vector<int>& balance) {
+        int n = balance.size();
+        int idx = -1;
+        long long total = 0;
+
+        for (int i = 0; i < n; i++) {
+            total += balance[i];
+
+            if (balance[i] < 0) {
+                idx = i;
+            }
+        }
+
+        if (idx == -1) return 0;
+
+        if (total < 0) return -1;
+
+        long long need = -1LL * balance[idx];
+        long long ans = 0;
+
+        for (int d = 1; d <= n / 2 && need > 0; d++) {
+            int left = (idx - d + n) % n;
+            int right = (idx + d) % n;
+
+            long long take = min(need, (long long)balance[left]);
+            ans += take * d;
+            need -= take;
+
+            if (left != right && need > 0) {
+                take = min(need, (long long)balance[right]);
+                ans += take * d;
+                need -= take;
+            }
+        }
+
+        return need == 0 ? ans : -1;
+    }
+};
